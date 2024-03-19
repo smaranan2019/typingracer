@@ -4,6 +4,8 @@ import useKeyPress from './Hooks/useKeyPress';
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 function TypingText({text}) {
   const textByLine = text.split("\n")
@@ -61,6 +63,19 @@ function TypingText({text}) {
   const accuracyText = `${correct} / ${chrsTyped.length} (${(accuracy).toFixed(0)}%)`
   const wpm = (chrsTyped.length / 5) / (seconds / 60);
 
+  const theme = createMuiTheme({
+    palette: {
+      primary: {
+        // Purple and green play nicely together.
+        main: '#212121',
+      },
+      secondary: {
+        // This is green.A700 as hex.
+        main: '#fafafa',
+      },
+    },
+  });
+
   return (
     <React.Fragment>
       <Box>
@@ -92,10 +107,10 @@ const sampleText = `hello world
 
 export default function App() {
   return (
-    <Container maxWidth="sm">
+    <ThemeProvider  theme={theme} maxWidth="sm">
       <Box my={4}>
         <TypingText text={sampleText}/>
       </Box>
-    </Container>
+    </ThemeProvider>
   );
 }
